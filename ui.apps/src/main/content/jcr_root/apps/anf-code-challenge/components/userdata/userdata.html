@@ -1,0 +1,30 @@
+<sly data-sly-test="${wcmmode.edit}">Edit the user data component here </sly>
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+    data-sly-call="${clientlib.all @ categories=['anf.userdata']}"/>
+
+  <div>
+  <form id="userForm">
+
+		<div id="success-message" style="display: none; color: green">Data
+			saved successfully</div>
+		<div id="error-message" style="display: none; color: red"></div>
+
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="First Name">
+
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Last Name">
+
+    <label for="age">Age</label>
+    <input type="text" id="age" name="age" placeholder="Please enter age">
+
+    <div data-sly-resource="${'country' @
+                        resourceType='anf-code-challenge/components/country',
+                        decorationTagName='div'
+                        }"></div>
+
+  
+    <input type="submit" value="Submit">
+  </form>
+</div>
+

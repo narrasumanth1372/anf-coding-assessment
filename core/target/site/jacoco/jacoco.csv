@@ -1,0 +1,14 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ANF Code Challenge - Core,com.anf.core.listeners,PageCreateListener,81,0,8,0,18,0,6,0,2,0
+ANF Code Challenge - Core,com.anf.core.listeners,SimpleResourceListener,0,18,0,0,0,4,0,2,0,2
+ANF Code Challenge - Core,com.anf.core.schedulers,SimpleScheduledTask,0,20,0,0,0,6,0,3,0,3
+ANF Code Challenge - Core,com.anf.core.services.impl,ContentServiceImpl,68,0,4,0,20,0,6,0,4,0
+ANF Code Challenge - Core,com.anf.core.servlets,SimpleServlet,0,24,0,0,0,5,0,2,0,2
+ANF Code Challenge - Core,com.anf.core.servlets,SQL2Servlet,87,0,4,0,25,0,4,0,2,0
+ANF Code Challenge - Core,com.anf.core.servlets,UserServlet,121,0,6,0,30,0,5,0,2,0
+ANF Code Challenge - Core,com.anf.core.servlets,DropDownServlet,176,0,8,0,47,0,11,0,7,0
+ANF Code Challenge - Core,com.anf.core.filters,LoggingFilter,0,28,0,0,0,10,0,4,0,4
+ANF Code Challenge - Core,com.anf.core.models,NewsFeedModel,113,0,4,0,22,0,5,0,3,0
+ANF Code Challenge - Core,com.anf.core.models,QueryBuilderModel,97,0,4,0,22,0,5,0,3,0
+ANF Code Challenge - Core,com.anf.core.models,HelloWorldModel,0,52,0,0,0,9,0,4,0,4
+ANF Code Challenge - Core,com.anf.core.models,NewsFeed,59,0,0,0,25,0,17,0,17,0

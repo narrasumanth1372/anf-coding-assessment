@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SQL2Servlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ANF Code Challenge - Core</a> &gt; <a href="index.source.html" class="el_package">com.anf.core.servlets</a> &gt; <span class="el_source">SQL2Servlet.java</span></div><h1>SQL2Servlet.java</h1><pre class="source lang-java linenums">
+package com.anf.core.servlets;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import javax.jcr.Workspace;
+import javax.jcr.query.Query;
+import javax.jcr.query.QueryManager;
+import javax.jcr.query.QueryResult;
+import javax.servlet.Servlet;
+
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.apache.sling.servlets.annotations.SlingServletPaths;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.anf.core.services.ContentService;
+
+/**
+ * @author Sumanth
+ */
+@Component(service = {Servlet.class})
+@SlingServletPaths(value = &quot;/bin/fetchPageResults&quot;)
+<span class="nc" id="L35">public class SQL2Servlet extends SlingSafeMethodsServlet {</span>
+
+    private static final long serialVersionUID = 1L;
+
+    @Reference
+    private ContentService contentService;
+
+<span class="nc" id="L42">    private final transient Logger log = LoggerFactory.getLogger(this.getClass());</span>
+
+    /**
+     * doGet() to fetch the list of the child pages
+     */
+    @Override
+    protected void doGet(final SlingHttpServletRequest req,
+                         final SlingHttpServletResponse resp) {
+
+<span class="nc" id="L51">        String query = &quot;SELECT * FROM [cq:PageContent] as nodes WHERE ISDESCENDANTNODE ([/content/anf-code-challenge/us/en]) \n&quot; +</span>
+                &quot;AND nodes.[anfCodeChallenge] = CAST(\&quot;true\&quot; AS BOOLEAN) &quot;;
+<span class="nc" id="L53">        ResourceResolver resolver = req.getResourceResolver();</span>
+        try {
+
+<span class="nc" id="L56">            List&lt;String&gt; allResources = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L57">            Session session = resolver.adaptTo(Session.class);</span>
+<span class="nc" id="L58">            Workspace workspace = session.getWorkspace();</span>
+<span class="nc" id="L59">            QueryManager qm = workspace.getQueryManager();</span>
+<span class="nc" id="L60">            Query jcrQuery = qm.createQuery(query, &quot;JCR-SQL2&quot;);</span>
+<span class="nc" id="L61">            jcrQuery.setLimit(10);</span>
+
+<span class="nc" id="L63">            QueryResult result = jcrQuery.execute();</span>
+
+<span class="nc" id="L65">            log.debug(&quot;size of the results query {} &quot;, result.getNodes().getSize());</span>
+
+<span class="nc" id="L67">            NodeIterator nodes = result.getNodes();</span>
+
+<span class="nc bnc" id="L69" title="All 2 branches missed.">            while (nodes.hasNext()) {</span>
+<span class="nc" id="L70">                Node node = nodes.nextNode();</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                if (node != null) {</span>
+<span class="nc" id="L72">                    allResources.add(node.getPath());</span>
+                }
+<span class="nc" id="L74">            }</span>
+
+<span class="nc" id="L76">            log.debug(&quot;size of the list {} &quot;, allResources.size());</span>
+
+<span class="nc" id="L78">            resp.setContentType(&quot;application/json&quot;);</span>
+<span class="nc" id="L79">            resp.getWriter().write(allResources.toString());</span>
+
+<span class="nc" id="L81">        } catch (RepositoryException | IOException exception) {</span>
+
+<span class="nc" id="L83">            log.error(&quot;Error finding data roots&quot;, exception);</span>
+<span class="nc" id="L84">        }</span>
+
+
+<span class="nc" id="L87">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

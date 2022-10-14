@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.anf.core.listeners.PageCreateListener" configuration-policy="optional" immediate="true">
+  <property name="event.topics" type="String" value="com/day/cq/wcm/core/page"/>
+  <service>
+    <provide interface="org.osgi.service.event.EventHandler"/>
+  </service>
+  <reference name="contentService" interface="com.anf.core.services.ContentService" field="contentService"/>
+  <implementation class="com.anf.core.listeners.PageCreateListener"/>
+</scr:component>

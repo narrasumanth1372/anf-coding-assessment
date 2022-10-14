@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContentServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ANF Code Challenge - Core</a> &gt; <a href="index.source.html" class="el_package">com.anf.core.services.impl</a> &gt; <span class="el_source">ContentServiceImpl.java</span></div><h1>ContentServiceImpl.java</h1><pre class="source lang-java linenums">package com.anf.core.services.impl;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.PersistenceException;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.anf.core.services.ContentService;
+
+/**
+ * @author Sumanth
+ */
+@Component(immediate = true, service = ContentService.class)
+<span class="nc" id="L22">public class ContentServiceImpl implements ContentService {</span>
+
+    public static final String ANF_SERVICE_USER = &quot;anfServiceUser&quot;;
+    public static final String USERS_PATH = &quot;/var/anf-code-challenge&quot;;
+
+<span class="nc" id="L27">    private static final Logger logger = LoggerFactory.getLogger(ContentServiceImpl.class);</span>
+    /*
+     * injecting resolverFactory in to the service
+     */
+    @Reference
+    private ResourceResolverFactory resolverFactory;
+
+
+    /**
+     * Write utility method to fetch the ResourceResolver
+     */
+    @Override
+    public ResourceResolver getResolver() {
+<span class="nc" id="L40">        ResourceResolver resolver = null;</span>
+        try {
+
+<span class="nc" id="L43">            Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L44">            params.put(ResourceResolverFactory.SUBSERVICE, ANF_SERVICE_USER);</span>
+<span class="nc" id="L45">            resolver = resolverFactory.getServiceResourceResolver(params);</span>
+<span class="nc" id="L46">        } catch (LoginException e) {</span>
+<span class="nc" id="L47">            logger.error(&quot;Error processing page creation event&quot;, e);</span>
+<span class="nc" id="L48">        }</span>
+
+<span class="nc" id="L50">        return resolver;</span>
+    }
+
+
+    /**
+     * Save the user details to the node
+     */
+    @Override
+    public void commitUserDetails(Map&lt;String, Object&gt; properties) {
+        try {
+
+<span class="nc" id="L61">            ResourceResolver resolver = getResolver();</span>
+<span class="nc" id="L62">            Resource resource = resolver.getResource(USERS_PATH);</span>
+            /*
+             * checking the condition if the user node exist or not
+             */
+<span class="nc" id="L66">            final String nodeName = (String) properties.get(&quot;firstName&quot;);</span>
+<span class="nc bnc" id="L67" title="All 4 branches missed.">            if (resource != null &amp;&amp; resolver.getResource(USERS_PATH.concat(&quot;/&quot;).concat(nodeName)) == null) {</span>
+<span class="nc" id="L68">                resolver.create(resource, nodeName, properties);</span>
+<span class="nc" id="L69">                resolver.commit();</span>
+            }
+
+<span class="nc" id="L72">        } catch (PersistenceException ex) {</span>
+
+<span class="nc" id="L74">            logger.error(&quot;Error finding data roots&quot;, ex);</span>
+
+<span class="nc" id="L76">        }</span>
+
+
+<span class="nc" id="L79">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

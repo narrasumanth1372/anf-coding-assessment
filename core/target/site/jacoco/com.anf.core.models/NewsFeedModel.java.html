@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NewsFeedModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ANF Code Challenge - Core</a> &gt; <a href="index.source.html" class="el_package">com.anf.core.models</a> &gt; <span class="el_source">NewsFeedModel.java</span></div><h1>NewsFeedModel.java</h1><pre class="source lang-java linenums">package com.anf.core.models;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.SlingObject;
+import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * @author Sumanth
+ */
+@Model(adaptables = SlingHttpServletRequest.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+<span class="nc" id="L26">public class NewsFeedModel {</span>
+
+<span class="nc" id="L28">    private final Logger logger = LoggerFactory.getLogger(this.getClass());</span>
+    /*
+     * created global constants  instead of getting from the configuration
+     */
+    public static final String PATH = &quot;/var/commerce/products/anf-code-challenge/newsData&quot;;
+    public static final String DATE_FORMAT = &quot;MM.dd.yyyy&quot;;
+    public static final String AUTHOR = &quot;author&quot;;
+    public static final String CONTENT = &quot;content&quot;;
+    public static final String DESCRIPTION = &quot;description&quot;;
+    public static final String TITLE = &quot;title&quot;;
+    public static final String URL = &quot;url&quot;;
+    public static final String URLIMAGE = &quot;urlImage&quot;;
+
+    /*
+     *  Injecting or fetching the path from the component
+     */
+    @ValueMapValue
+    private String newsFeedPath;
+
+    /*
+     *  Injecting the resourceResolver
+     */
+    @SlingObject
+    ResourceResolver resourceResolver;
+
+<span class="nc" id="L53">    private List&lt;NewsFeed&gt; newsFeed = new ArrayList&lt;NewsFeed&gt;();</span>
+
+    /**
+     * Business logic to read the child nodes and adding their paths to the List
+     */
+    @PostConstruct
+    public void getBusiness() {
+
+<span class="nc" id="L61">        Resource resource = resourceResolver.getResource(newsFeedPath);</span>
+
+<span class="nc" id="L63">        String date = new SimpleDateFormat(DATE_FORMAT).format(new Date());</span>
+
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (resource != null) {</span>
+<span class="nc" id="L66">            final Iterator&lt;Resource&gt; itr = resource.listChildren();</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">            while (itr.hasNext()) {</span>
+<span class="nc" id="L68">                final Resource news = itr.next();</span>
+<span class="nc" id="L69">                NewsFeed newsDetails = new NewsFeed();</span>
+<span class="nc" id="L70">                newsDetails.setAuthor(news.getValueMap().get(AUTHOR, StringUtils.EMPTY));</span>
+<span class="nc" id="L71">                newsDetails.setContent(news.getValueMap().get(CONTENT, StringUtils.EMPTY));</span>
+<span class="nc" id="L72">                newsDetails.setDescription(news.getValueMap().get(DESCRIPTION, StringUtils.EMPTY));</span>
+<span class="nc" id="L73">                newsDetails.setTitle(news.getValueMap().get(TITLE, StringUtils.EMPTY));</span>
+<span class="nc" id="L74">                newsDetails.setUrl(news.getValueMap().get(URL, StringUtils.EMPTY));</span>
+<span class="nc" id="L75">                newsDetails.setUrlImage(news.getValueMap().get(URLIMAGE, StringUtils.EMPTY));</span>
+<span class="nc" id="L76">                newsDetails.setCurrentdate(date);</span>
+<span class="nc" id="L77">                newsFeed.add(newsDetails);</span>
+<span class="nc" id="L78">            }</span>
+
+<span class="nc" id="L80">            logger.debug(&quot;news feed list size {} &quot;, newsFeed.size());</span>
+        }
+<span class="nc" id="L82">    }</span>
+
+    /**
+     * @return List of the NewsFeeds
+     */
+    public List&lt;NewsFeed&gt; getNewsFeed() {
+<span class="nc" id="L88">        return newsFeed;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

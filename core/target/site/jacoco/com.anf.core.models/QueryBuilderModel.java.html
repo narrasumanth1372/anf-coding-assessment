@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>QueryBuilderModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ANF Code Challenge - Core</a> &gt; <a href="index.source.html" class="el_package">com.anf.core.models</a> &gt; <span class="el_source">QueryBuilderModel.java</span></div><h1>QueryBuilderModel.java</h1><pre class="source lang-java linenums">package com.anf.core.models;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.jcr.Session;
+
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.SlingObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.day.cq.search.PredicateGroup;
+import com.day.cq.search.Query;
+import com.day.cq.search.QueryBuilder;
+import com.day.cq.search.result.SearchResult;
+
+@Model(adaptables = SlingHttpServletRequest.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+<span class="nc" id="L27">public class QueryBuilderModel {</span>
+
+<span class="nc" id="L29">    private final Logger logger = LoggerFactory.getLogger(this.getClass());</span>
+    /*
+     * Injecting Resource Resolver
+     */
+    @SlingObject
+    ResourceResolver resourceResolver;
+
+<span class="nc" id="L36">    private List&lt;String&gt; pagePaths = new ArrayList&lt;&gt;();</span>
+
+    /*
+     * Init method to frame the Query and read the pages
+     */
+    @PostConstruct
+    public void init() {
+
+        /*
+         * constructed Map query
+         */
+<span class="nc" id="L47">        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L48">        map.put(&quot;path&quot;, &quot;/content&quot;);</span>
+<span class="nc" id="L49">        map.put(&quot;type&quot;, &quot;cq:Page&quot;);</span>
+<span class="nc" id="L50">        map.put(&quot;1_property&quot;, &quot;jcr:content/anfCodeChallenge&quot;);</span>
+<span class="nc" id="L51">        map.put(&quot;1_property.value&quot;, &quot;true&quot;);</span>
+<span class="nc" id="L52">        map.put(&quot;p.limit&quot;, &quot;10&quot;);</span>
+
+<span class="nc" id="L54">        final QueryBuilder queryBuilder = resourceResolver.adaptTo(QueryBuilder.class);</span>
+<span class="nc" id="L55">        final Session session = resourceResolver.adaptTo(Session.class);</span>
+
+<span class="nc" id="L57">        final Query query = queryBuilder.createQuery(PredicateGroup.create(map), session);</span>
+<span class="nc" id="L58">        final SearchResult result = query.getResult();</span>
+<span class="nc" id="L59">        Resource resultRes = null;</span>
+
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (null != result) {</span>
+<span class="nc" id="L62">            final Iterator&lt;Resource&gt; nodeItr = result.getResources();</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            while (nodeItr.hasNext()) {</span>
+<span class="nc" id="L64">                resultRes = nodeItr.next();</span>
+<span class="nc" id="L65">                pagePaths.add(resultRes.getPath());</span>
+            }
+
+<span class="nc" id="L68">            logger.debug(&quot;number of the results {} &quot;, result.getHits().size());</span>
+        }
+<span class="nc" id="L70">    }</span>
+
+    /**
+     * @return paths of the page
+     */
+    public List&lt;String&gt; getPagePaths() {
+<span class="nc" id="L76">        return pagePaths;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
