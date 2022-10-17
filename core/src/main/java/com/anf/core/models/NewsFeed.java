@@ -1,81 +1,71 @@
 package com.anf.core.models;
 
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Model;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author Sumanth
  */
+@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class NewsFeed {
 
+    private static final String DATE_FORMAT = "MM.dd.yyyy";
+
+    @Inject
     private String title;
+    @Inject
     private String author;
-    private String currentdate;
-    private String Description;
-    private String Image;
+
+    private String currentDate;
+
+    @Inject
+    private String description;
+
+    @Inject
     private String content;
+
+    @Inject
     private String url;
+
+    @Inject
     private String urlImage;
+
+    @PostConstruct
+    public void init() {
+        this.currentDate = new SimpleDateFormat(DATE_FORMAT).format(new Date());
+    }
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getCurrentdate() {
-        return currentdate;
-    }
-
-    public void setCurrentdate(String currentdate) {
-        this.currentdate = currentdate;
+    public String getCurrentDate() {
+        return currentDate;
     }
 
     public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
-
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String image) {
-        Image = image;
+        return description;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getUrlImage() {
         return urlImage;
     }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
-    }
-
 }

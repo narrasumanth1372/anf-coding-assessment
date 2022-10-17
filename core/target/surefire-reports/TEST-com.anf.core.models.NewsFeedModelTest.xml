@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.anf.core.schedulers.SimpleScheduledTaskTest" time="0.103" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.anf.core.models.NewsFeedModelTest" time="0.297" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="gopherProxySet" value="false"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -60,5 +60,6 @@
     <property name="java.class.version" value="52.0"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase name="run" classname="com.anf.core.schedulers.SimpleScheduledTaskTest" time="0.102"/>
+  <testcase name="testNewsFeedListWithValue" classname="com.anf.core.models.NewsFeedModelTest" time="0.213"/>
+  <testcase name="testNewsFeedListWithoutValue" classname="com.anf.core.models.NewsFeedModelTest" time="0.025"/>
 </testsuite>

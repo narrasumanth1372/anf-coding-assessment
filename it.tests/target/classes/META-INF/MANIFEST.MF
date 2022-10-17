@@ -5,7 +5,7 @@ Bundle-Description: Bundles for Integration Tests for ANF Code Challen
 Bundle-ManifestVersion: 2
 Bundle-Name: ANF Code Challenge - Integration Tests Bundles
 Bundle-SymbolicName: anf-code-challenge.it.tests
-Bundle-Version: 1.0.0.20221014170629301
+Bundle-Version: 1.0.0.20221017165332065
 Export-Package: com.anf.it.tests;version="1.0";uses:="org.apache.sling
  .junit.annotations,org.junit,org.junit.runner"
 Import-Package: com.anf.core.models;version="[1.0,2)",org.apache.sling

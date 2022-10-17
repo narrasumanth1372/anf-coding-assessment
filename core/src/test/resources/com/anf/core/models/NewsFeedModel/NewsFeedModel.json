@@ -1,0 +1,21 @@
+{
+	"jcr:primaryType": "cq:Page",
+	"jcr:content": {
+		"jcr:primaryType": "cq:PageContent",
+		"cq:lastModified": "2020-03-24T09:33:19.671Z",
+		"cq:template": "/conf/anf-code-challenge/settings/wcm/templates/base",
+		"sling:resourceType": "anf-code-challenge/components/structure/page",
+		"jcr:createdBy": "admin",
+		"jcr:created": "Thu Aug 07 2014 16:32:59 GMT+0200",
+		"newsFeed_with_value": {
+			"jcr:primaryType": "nt:unstructured",
+			"newsFeedPath": "/var/commerce/products/anf-code-challenge/newsData",
+			"sling:resourceType": "anf-code-challenge/components/newsfeed"
+		},
+		"newsFeed_without_value": {
+			"jcr:primaryType": "nt:unstructured",
+			"newsFeedPath": "",
+			"sling:resourceType": "anf-code-challenge/components/newsfeed"
+		}
+	}
+}

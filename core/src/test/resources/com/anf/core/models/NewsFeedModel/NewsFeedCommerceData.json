@@ -1,0 +1,20 @@
+{
+  "news_0": {
+    "jcr:primaryType": "nt:unstructured",
+    "author": "Caroline Fox",
+    "content": "News Feed Content",
+    "description": "News feed sample content for test!",
+    "title": "News Feed 0",
+    "url": "https://bbc.co.uk/news_feed_0",
+    "urlImage": "https://bbc.co.uk/news_feed_0/news.png"
+  },
+  "news_1": {
+    "jcr:primaryType": "nt:unstructured",
+    "author": "Caroline Fox",
+    "content": "News Feed Content",
+    "description": "News feed sample content for test!",
+    "title": "News Feed 1",
+    "url": "https://bbc.co.uk/news_feed_0",
+    "urlImage": "https://bbc.co.uk/news_feed_0/news.png"
+  }
+}

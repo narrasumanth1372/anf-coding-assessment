@@ -36,7 +36,7 @@ public final class newsfeed_html extends RenderUnit {
 
 Object _dynamic_wcmmode = bindings.get("wcmmode");
 Object _global_clientlib = null;
-Object _global_myobject = null;
+Object _global_model = null;
 Collection var_collectionvar3_list_coerced$ = null;
 {
     Object var_testvariable0 = renderContext.getObjectModel().resolveProperty(_dynamic_wcmmode, "edit");
@@ -57,10 +57,10 @@ _global_clientlib = renderContext.call("use", "/libs/granite/sightly/templates/c
     }
 }
 out.write("\n\n");
-_global_myobject = renderContext.call("use", com.anf.core.models.NewsFeedModel.class.getName(), obj());
+_global_model = renderContext.call("use", com.anf.core.models.NewsFeedModel.class.getName(), obj());
 out.write("<div>\n\n    <section class=\"recentNews\">\n        <div class=\"container\">\n            <h2 class=\"news-title\">Recent News</h2>\n            ");
 {
-    Object var_collectionvar3 = renderContext.getObjectModel().resolveProperty(_global_myobject, "newsFeed");
+    Object var_collectionvar3 = renderContext.getObjectModel().resolveProperty(_global_model, "newsFeedList");
     {
         long var_size4 = ((var_collectionvar3_list_coerced$ == null ? (var_collectionvar3_list_coerced$ = renderContext.getObjectModel().toCollection(var_collectionvar3)) : var_collectionvar3_list_coerced$).size());
         {
@@ -76,13 +76,13 @@ out.write("<div>\n\n    <section class=\"recentNews\">\n        <div class=\"con
                                 var_collectionvar3_list_coerced$ = renderContext.getObjectModel().toCollection(var_collectionvar3);
                             }
                             long var_index10 = 0;
-                            for (Object newslist : var_collectionvar3_list_coerced$) {
+                            for (Object newsfeed : var_collectionvar3_list_coerced$) {
                                 {
                                     boolean var_traversal12 = (((var_index10 >= 0) && (var_index10 <= var_end8)) && true);
                                     if (var_traversal12) {
-                                        out.write("\n\n                <div class=\"row\">\n\n                    <div class=\"ct-blog col-sm-6 col-md-4\">\n                        <div class=\"inner\">\n                            <div class=\"fauxcrop\">\n                                <a href=\"#\"><img alt=\"News Entry\"");
+                                        out.write("\n                <div class=\"row\">\n                    <div class=\"ct-blog col-sm-6 col-md-4\">\n                        <div class=\"inner\">\n                            <div class=\"fauxcrop\">\n                                <a href=\"#\"><img alt=\"News Entry\"");
                                         {
-                                            Object var_attrvalue13 = renderContext.getObjectModel().resolveProperty(newslist, "urlImage");
+                                            Object var_attrvalue13 = renderContext.getObjectModel().resolveProperty(newsfeed, "urlImage");
                                             {
                                                 Object var_attrcontent14 = renderContext.call("xss", var_attrvalue13, "uri");
                                                 {
@@ -103,17 +103,17 @@ out.write("<div>\n\n    <section class=\"recentNews\">\n        <div class=\"con
                                         }
                                         out.write("/></a>\n                            </div>\n                            <div class=\"ct-blog-content\">\n                                <div class=\"ct-blog-date\">\n                                    <span>");
                                         {
-                                            String var_17 = ((((" " + renderContext.getObjectModel().toString(renderContext.call("xss", renderContext.getObjectModel().resolveProperty(newslist, "currentdate"), "text"))) + " || ") + renderContext.getObjectModel().toString(renderContext.call("xss", renderContext.getObjectModel().resolveProperty(newslist, "author"), "text"))) + " ");
+                                            String var_17 = ((((" " + renderContext.getObjectModel().toString(renderContext.call("xss", renderContext.getObjectModel().resolveProperty(newsfeed, "currentDate"), "text"))) + " || ") + renderContext.getObjectModel().toString(renderContext.call("xss", renderContext.getObjectModel().resolveProperty(newsfeed, "author"), "text"))) + " ");
                                             out.write(renderContext.getObjectModel().toString(var_17));
                                         }
                                         out.write("</span><strong>1</strong>\n                                </div>\n                                <h3 class=\"ct-blog-header\">");
                                         {
-                                            String var_18 = ("\n                                    " + renderContext.getObjectModel().toString(renderContext.call("xss", renderContext.getObjectModel().resolveProperty(newslist, "title"), "text")));
+                                            String var_18 = ("\n                                    " + renderContext.getObjectModel().toString(renderContext.call("xss", renderContext.getObjectModel().resolveProperty(newsfeed, "title"), "text")));
                                             out.write(renderContext.getObjectModel().toString(var_18));
                                         }
                                         out.write("<br/>\n                                </h3>\n                                <div class=\"ct-blog-dec\">\n                                    <span>");
                                         {
-                                            String var_19 = ("  " + renderContext.getObjectModel().toString(renderContext.call("xss", renderContext.getObjectModel().resolveProperty(newslist, "Description"), "text")));
+                                            String var_19 = ("  " + renderContext.getObjectModel().toString(renderContext.call("xss", renderContext.getObjectModel().resolveProperty(newsfeed, "description"), "text")));
                                             out.write(renderContext.getObjectModel().toString(var_19));
                                         }
                                         out.write("</span><strong>1</strong>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            ");

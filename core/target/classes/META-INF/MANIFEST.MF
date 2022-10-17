@@ -18,15 +18,16 @@ Import-Package: javax.annotation;version="0.0.0",com.adobe.granite.ui.
  ",com.anf.core.schedulers;version="[1.0,2)",com.day.cq.search;version
  ="[1.3,2)",com.day.cq.search.result;version="[1.2,2)",com.day.cq.wcm.
  api;version="[1.27,2)",com.fasterxml.jackson.databind;version="[2.9,3
- )",javax.jcr;version="[2.0,3)",javax.jcr.query;version="[2.0,3)",java
- x.servlet;version="[3.1,4)",org.apache.jackrabbit.commons;version="[2
- .4,3)",org.apache.sling.api;version="[2.3,3)",org.apache.sling.api.re
- quest;version="[2.4,3)",org.apache.sling.api.resource;version="[2.11,
- 3)",org.apache.sling.api.servlets;version="[2.2,3)",org.apache.sling.
- api.wrappers;version="[2.6,3)",org.apache.sling.models.annotations;ve
- rsion="[1.5,2)",org.apache.sling.models.annotations.injectorspecific;
- version="[1.1,2)",org.apache.sling.settings;version="[1.3,2)",org.osg
- i.service.event;version="[1.3,2)",org.slf4j;version="[1.7,2)"
+ )",javax.inject;version="[1.0,2)",javax.jcr;version="[2.0,3)",javax.j
+ cr.query;version="[2.0,3)",javax.servlet;version="[3.1,4)",org.apache
+ .commons.lang3;version="[3.6,4)",org.apache.jackrabbit.commons;versio
+ n="[2.4,3)",org.apache.sling.api;version="[2.3,3)",org.apache.sling.a
+ pi.request;version="[2.4,3)",org.apache.sling.api.resource;version="[
+ 2.11,3)",org.apache.sling.api.servlets;version="[2.2,3)",org.apache.s
+ ling.api.wrappers;version="[2.6,3)",org.apache.sling.models.annotatio
+ ns;version="[1.5,2)",org.apache.sling.models.annotations.injectorspec
+ ific;version="[1.1,2)",org.apache.sling.settings;version="[1.3,2)",or
+ g.osgi.service.event;version="[1.3,2)",org.slf4j;version="[1.7,2)"
 Private-Package: com.anf.core.services,com.anf.core.services.impl
 Provide-Capability: osgi.service;objectClass:List<String>="com.anf.cor
  e.services.ContentService";uses:="com.anf.core.services",osgi.service
@@ -50,5 +51,6 @@ Service-Component: OSGI-INF/com.anf.core.filters.LoggingFilter.xml,OSG
  e.servlets.SimpleServlet.xml,OSGI-INF/com.anf.core.servlets.UserServl
  et.xml
 Sling-Model-Classes: com.anf.core.models.HelloWorldModel,com.anf.core.
- models.NewsFeedModel,com.anf.core.models.QueryBuilderModel
+ models.NewsFeed,com.anf.core.models.NewsFeedModel,com.anf.core.models
+ .QueryBuilderModel
 
